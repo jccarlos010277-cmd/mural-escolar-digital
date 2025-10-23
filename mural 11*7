@@ -221,7 +221,7 @@
         <div class="grid md:grid-cols-3 gap-8 items-center">
             <div class="md:col-span-2">
                 <h2 class="text-3xl font-bold mb-4" style="color: var(--color-secondary);">📚 Reglamento Escolar: Puntos Clave</h2>
-                <p class="text-gray-700 mb-6"> Neo, te guía con los puntos clave para mantener la disciplina y la armonía en el aula.</p>
+                <p class="text-gray-700 mb-6">El personaje masculino, **Neo**, te guía con los puntos clave para mantener la disciplina y la armonía en el aula.</p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="info-card border-l-4 border-green-500">
@@ -257,7 +257,7 @@
             <div class="flex flex-col md:flex-row items-center justify-center mb-6">
                  <!-- Imagen Estrella - Femenino (URL actualizada) -->
                 <img src="https://i.postimg.cc/7hyLqbTF/Gemini-Generated-Image-7peuts7peuts7peu-1.png" alt="Personaje Femenino - Estrella" class="mascot-image max-w-[150px] mb-4 md:mb-0 md:mr-6 rounded-xl shadow-2xl">
-                <p class="text-gray-700 text-center md:text-left max-w-xl">Estrella nos presenta a los compañeros que tienen la misión de dirigir y representar al aula. ¡Haz clic en la tarjeta para ver el rol de cada uno!</p>
+                <p class="text-gray-700 text-center md:text-left max-w-xl">**Estrella** nos presenta a los compañeros que tienen la misión de dirigir y representar al aula. ¡Haz clic en la tarjeta para ver el rol de cada uno!</p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -310,7 +310,7 @@
         <div class="grid md:grid-cols-1 gap-8 items-center">
             <div class="info-card shadow-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white transform hover:scale-[1.01] transition duration-300 overflow-x-auto">
                 <h2 class="text-3xl font-extrabold mb-4 border-b pb-2 border-white/50 text-center">⏰ Horario Escolar Semanal Completo</h2>
-               
+                <p class="text-sm mb-4 opacity-80 text-center">¡Presta atención! El horario incluye 3 turnos matutinos y 5 turnos vespertinos, totalizando 8 periodos de clase al día. (Horarios y asignaturas de ejemplo).</p>
 
                 <!-- Horario de Ejemplo DETALLADO -->
                 <table class="w-full text-left bg-white/10 rounded-lg overflow-hidden border border-white/30 table-horario text-xs md:text-base">
@@ -318,15 +318,15 @@
                         <tr>
                             <th class="p-3 font-semibold">Día</th>
                             <!-- Turnos de la MAÑANA (3) -->
-                            <th class="p-3 font-semibold turno-header-manana text-center"> (8:00)</th>
-                            <th class="p-3 font-semibold turno-header-manana text-center">(9:00)</th>
-                            <th class="p-3 font-semibold turno-header-manana text-center"> (10:15)</th>
+                            <th class="p-3 font-semibold turno-header-manana text-center">M-1 (8:00)</th>
+                            <th class="p-3 font-semibold turno-header-manana text-center">M-2 (9:00)</th>
+                            <th class="p-3 font-semibold turno-header-manana text-center">M-3 (10:15)</th>
                             <!-- Turnos de la TARDE (5) -->
-                            <th class="p-3 font-semibold turno-header-tarde text-center">(1:00)</th>
-                            <th class="p-3 font-semibold turno-header-tarde text-center"> (1:50)</th>
-                            <th class="p-3 font-semibold turno-header-tarde text-center"> (2:40)</th>
-                            <th class="p-3 font-semibold turno-header-tarde text-center"> (3:30)</th>
-                            <th class="p-3 font-semibold turno-header-tarde text-center"> (4:20)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center">T-1 (1:00)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center">T-2 (1:50)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center">T-3 (2:40)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center">T-4 (3:30)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center">T-5 (4:20)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -387,7 +387,9 @@
                         </tr>
                     </tbody>
                 </table>
-              
+                <p class="mt-4 text-sm font-medium opacity-90">
+                    <span class="text-yellow-300">Nota:</span> **M-1 a M-3** (Mañana), **T-1 a T-5** (Tarde). Los turnos de la tarde suelen ser para actividades extra-curriculares, talleres y educación física.
+                </p>
             </div>
             <div class="text-center">
                  <!-- Imagen Neo - Masculino (URL actualizada) -->
@@ -417,9 +419,9 @@
                 <p>Por ello, la **asistencia de los educandos cobra aún más importancia**. Necesitamos el apoyo decidido de los padres para asegurar este parámetro. A partir de mañana, cada estudiante que asista a la institución lo hará con propósito: tendrá clases, tendrá guía, tendrá acompañamiento. No estarán en la escuela por rutina, sino por **responsabilidad y por respeto al esfuerzo colectivo** que estamos realizando.</p>
                 <p>Agradecemos profundamente su comprensión y colaboración en estos momentos. Juntos, superaremos esta etapa con compromiso y unidad.</p>
                 <p class="pt-4 text-right font-semibold border-t border-gray-200">
-                    Saludos cordiales,<br>
-                    Yoangel Medero<br>
-                    Director
+                    La Dirección del Preuniversitario<br>
+                    **21 de octubre de 2025**<br>
+                    Yoangel Medero, Director
                 </p>
             </div>
         </div>
@@ -626,3 +628,4 @@
 </script>
 </body>
 </html>
+
