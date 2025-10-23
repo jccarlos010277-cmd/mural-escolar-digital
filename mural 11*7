@@ -1,0 +1,628 @@
+<!--
+  Mural Digital Interactivo para el Preuniversitario José Martí, Aula 11 #7.
+  Temas: Reglamento Escolar, Consejo del Aula, Horario Escolar, Información, Efemérides.
+  Diseño juvenil, transiciones y personajes (mascotas).
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural Digital | Aula 11 #7</title>
+    <!-- Carga de Tailwind CSS para un diseño moderno y responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuente atractiva: Poppins para contenido, usaremos Inter para el título por su claridad -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght=700;900&display=swap');
+        :root {
+            --color-primary: #D50000; /* Rojo vibrante */
+            --color-secondary: #004D99; /* Azul oscuro y juvenil */
+            --color-accent: #FFD700; /* Dorado/Amarillo */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8; /* Fondo suave */
+            line-height: 1.6;
+        }
+        /* Estilo general del contenedor principal */
+        #app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        /* Título Principal con nueva fuente clara */
+        .header-title {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 900; /* Extra bold */
+            color: var(--color-secondary); /* Color fuerte para contraste */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ------------------------------------------------ */
+        /* EFECTOS DE SECCIÓN - Animación de Entrada/Salida */
+        /* ------------------------------------------------ */
+        .content-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateY(20px);
+        }
+        .content-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ------------------------------------------------ */
+        /* EFECTOS DE BOTONES DE NAVEGACIÓN (RIPPLE EFFECT) */
+        /* ------------------------------------------------ */
+        .nav-button {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            border: 2px solid transparent;
+        }
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px -5px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-button.active-tab {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-accent);
+            transform: scale(1.03) !important; /* Ligeramente más grande */
+        }
+        /* Ripple effect CSS */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+
+        /* ------------------------------------------------ */
+        /* EFECTOS DE TARJETAS DE INFORMACIÓN (HOVER) */
+        /* ------------------------------------------------ */
+        .info-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none; /* Evitar que el texto se seleccione al hacer clic */
+        }
+        .info-card.interactive:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--color-primary);
+            cursor: pointer;
+        }
+        .info-card.interactive {
+            border: 1px solid #e5e7eb;
+        }
+
+
+        /* Estilo para los personajes */
+        .mascot-image {
+            width: 100%;
+            height: auto;
+            max-width: 250px;
+            margin: 0 auto;
+            /* Animación de "respiración" sutil */
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0.5deg); }
+            50% { transform: translateY(-5px) rotate(-0.5deg); }
+            100% { transform: translateY(0px) rotate(0.5deg); }
+        }
+
+        /* Estilos para el Modal (Ventana Emergente con Blur y Escala) */
+        #modal-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            backdrop-filter: blur(8px); /* Efecto de desenfoque al fondo (más fuerte) */
+        }
+        #modal-content {
+            transform: scale(0.7);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto "pop" */
+        }
+        #modal-overlay.active {
+            opacity: 1;
+        }
+        #modal-overlay.active #modal-content {
+            transform: scale(1);
+        }
+
+        /* Estilo para el Comunicado - Destacado y Urgente */
+        .comunicado-card {
+            background-color: #fff8e1; /* Fondo amarillo/crema muy suave */
+            border: 4px solid var(--color-accent); /* Borde dorado */
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 12px 25px rgba(255, 215, 0, 0.3); /* Sombra intensa */
+            animation: pulse-border 2s infinite alternate; /* Animación de borde sutil */
+        }
+        @keyframes pulse-border {
+            from { border-color: #FFD700; }
+            to { border-color: #FFC107; }
+        }
+
+        /* Estilos específicos para la tabla de Horario */
+        .turno-header-manana {
+            background-color: #004D99; /* Azul oscuro de la mañana */
+            color: white;
+        }
+        .turno-header-tarde {
+            background-color: #D50000; /* Rojo vibrante de la tarde */
+            color: white;
+        }
+        .table-horario td {
+             padding: 0.75rem;
+             border-left: 1px solid #e0e0e0;
+             border-right: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+
+    <!-- ENCABEZADO Y TÍTULO PRINCIPAL -->
+    <header class="text-center py-6 md:py-10 bg-white shadow-lg rounded-xl mb-6 border-b-4 border-yellow-500">
+        <h1 class="text-4xl md:text-5xl header-title" style="color: var(--color-primary);">
+            MURAL DIGITAL AULA 11 #7
+        </h1>
+        <p class="mt-2 text-xl font-medium text-gray-600">
+            Preuniversitario José Martí, Habana Vieja 🇨🇺
+        </p>
+    </header>
+
+    <!-- BARRA DE NAVEGACIÓN INTERACTIVA (TABS) -->
+    <nav class="sticky top-0 z-10 bg-white p-3 rounded-xl shadow-xl mb-8">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+            <button data-target="reglamento" class="nav-button bg-gray-200 text-gray-700 py-2 px-4 rounded-full font-semibold text-sm md:text-base hover:bg-gray-300">
+                📚 Reglamento Escolar
+            </button>
+            <button data-target="consejo" class="nav-button bg-gray-200 text-gray-700 py-2 px-4 rounded-full font-semibold text-sm md:text-base hover:bg-gray-300">
+                👑 Consejo del Aula
+            </button>
+            <button data-target="horario" class="nav-button bg-gray-200 text-gray-700 py-2 px-4 rounded-full font-semibold text-sm md:text-base hover:bg-gray-300">
+                ⏰ Horario Escolar
+            </button>
+            <!-- El botón de Información tendrá la clase 'active-tab' inicialmente -->
+            <button data-target="informacion" class="nav-button bg-gray-200 text-gray-700 py-2 px-4 rounded-full font-semibold text-sm md:text-base hover:bg-gray-300 active-tab">
+                ℹ️ Información General
+            </button>
+            <button data-target="efemerides" class="nav-button bg-gray-200 text-gray-700 py-2 px-4 rounded-full font-semibold text-sm md:text-base hover:bg-gray-300">
+                📅 Efemérides y Símbolos
+            </button>
+        </div>
+    </nav>
+
+    <!-- SECCIONES DE CONTENIDO INTERACTIVO -->
+
+    <!-- 1. REGLAMENTO ESCOLAR -->
+    <section id="reglamento" class="content-section">
+        <div class="grid md:grid-cols-3 gap-8 items-center">
+            <div class="md:col-span-2">
+                <h2 class="text-3xl font-bold mb-4" style="color: var(--color-secondary);">📚 Reglamento Escolar: Puntos Clave</h2>
+                <p class="text-gray-700 mb-6"> Neo, te guía con los puntos clave para mantener la disciplina y la armonía en el aula.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="info-card border-l-4 border-green-500">
+                        <h3 class="font-bold text-lg text-gray-800">1. Puntualidad y Asistencia</h3>
+                        <p class="text-sm text-gray-600">Ser puntuales en todas las actividades. La asistencia es obligatoria. Justificar las ausencias de inmediato.</p>
+                    </div>
+                    <div class="info-card border-l-4 border-yellow-500">
+                        <h3 class="font-bold text-lg text-gray-800">2. Mantenimiento del Aula</h3>
+                        <p class="text-sm text-gray-600">Cuidar los medios de enseñanza y la limpieza del local. El aula es el segundo hogar de todos.</p>
+                    </div>
+                    <div class="info-card border-l-4 border-blue-500">
+                        <h3 class="font-bold text-lg text-gray-800">3. Rendimiento Académico</h3>
+                        <p class="text-sm text-gray-600">Estudiar con rigor, participar activamente y mostrar una actitud responsable ante el estudio.</p>
+                    </div>
+                    <div class="info-card border-l-4 border-red-500">
+                        <h3 class="font-bold text-lg text-gray-800">4. Disciplina y Respeto</h3>
+                        <p class="text-sm text-gray-600">Mantener un comportamiento ejemplar, respetar a los profesores y compañeros sin excepción.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <!-- Imagen Neo - Masculino (URL actualizada) -->
+                <img src="https://i.postimg.cc/vTdmGDVR/Gemini-Generated-Image-1h0ux41h0ux41h0u-1.png" alt="Personaje Masculino - Neo" class="mascot-image rounded-xl shadow-2xl">
+                <p class="mt-2 text-sm text-gray-500 italic">"¡La disciplina nos lleva al éxito!" - Neo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. CONSEJO DEL AULA (Interactivos con Modal) -->
+    <section id="consejo" class="content-section">
+        <div class="grid md:grid-cols-1 gap-6">
+            <h2 class="text-3xl font-bold mb-4 text-center" style="color: var(--color-primary);">👑 Consejo del Aula: Nuestros Líderes</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center mb-6">
+                 <!-- Imagen Estrella - Femenino (URL actualizada) -->
+                <img src="https://i.postimg.cc/7hyLqbTF/Gemini-Generated-Image-7peuts7peuts7peu-1.png" alt="Personaje Femenino - Estrella" class="mascot-image max-w-[150px] mb-4 md:mb-0 md:mr-6 rounded-xl shadow-2xl">
+                <p class="text-gray-700 text-center md:text-left max-w-xl">Estrella nos presenta a los compañeros que tienen la misión de dirigir y representar al aula. ¡Haz clic en la tarjeta para ver el rol de cada uno!</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                <!-- Jefa de Destacamento -->
+                <div class="info-card border-t-4 border-red-500 flex flex-col items-center cursor-pointer interactive"
+                    data-role="Jefa de Destacamento"
+                    data-detail="Es la máxima responsable de la organización del aula. Dirige las asambleas, vela por el cumplimiento de los deberes y representa al grupo ante la dirección. Su liderazgo es esencial."
+                    data-img="https://placehold.co/80x80/D50000/ffffff?text=J.D.">
+                    <img src="https://placehold.co/80x80/D50000/ffffff?text=J.D." alt="Foto Jefa de Destacamento" class="member-photo mb-3 rounded-full">
+                    <h3 class="font-bold text-sm md:text-xl text-red-700 text-center">Jefa de Destacamento</h3>
+                    <p class="text-xs text-gray-600 font-semibold mt-1">Líder Principal</p>
+                </div>
+
+                <!-- Segundo Jefe de Destacamento -->
+                <div class="info-card border-t-4 border-blue-500 flex flex-col items-center cursor-pointer interactive"
+                    data-role="Segundo Jefe de Destacamento"
+                    data-detail="Sustituye a la Jefa en su ausencia y colabora estrechamente en la organización de las tareas. Generalmente apoya en la logística y el control de asistencia."
+                    data-img="https://placehold.co/80x80/004D99/ffffff?text=S.J.D">
+                    <img src="https://placehold.co/80x80/004D99/ffffff?text=S.J.D" alt="Foto Segundo Jefe de Destacamento" class="member-photo mb-3 rounded-full">
+                    <h3 class="font-bold text-sm md:text-xl text-blue-700 text-center">Segundo Jefe</h3>
+                    <p class="text-xs text-gray-600 font-semibold mt-1">Apoyo y Logística</p>
+                </div>
+
+                <!-- Jefa de Emulación -->
+                <div class="info-card border-t-4 border-yellow-500 flex flex-col items-center cursor-pointer interactive"
+                    data-role="Jefa de Emulación"
+                    data-detail="Encargada de promover el estudio, el esfuerzo y la sana competencia. Organiza las pizarras murales, controla los resultados académicos y propone reconocimientos al mérito."
+                    data-img="https://placehold.co/80x80/FFD700/000000?text=J.E.">
+                    <img src="https://placehold.co/80x80/FFD700/000000?text=J.E." alt="Foto Jefa de Emulación" class="member-photo mb-3 rounded-full">
+                    <h3 class="font-bold text-sm md:text-xl text-yellow-700 text-center">Jefa de Emulación</h3>
+                    <p class="text-xs text-gray-600 font-semibold mt-1">Motivación y Reconocimiento</p>
+                </div>
+
+                <!-- Jefe de Actividades -->
+                <div class="info-card border-t-4 border-green-500 flex flex-col items-center cursor-pointer interactive"
+                    data-role="Jefe de Actividades"
+                    data-detail="Responsable de organizar y coordinar todas las actividades extra-escolares: culturales, deportivas, recreativas y productivas. Asegura la integración y el buen ambiente."
+                    data-img="https://placehold.co/80x80/28a745/ffffff?text=J.A.">
+                    <img src="https://placehold.co/80x80/28a745/ffffff?text=J.A." alt="Foto Jefe de Actividades" class="member-photo mb-3 rounded-full">
+                    <h3 class="font-bold text-sm md:text-xl text-green-700 text-center">Jefe de Actividades</h3>
+                    <p class="text-xs text-gray-600 font-semibold mt-1">Cultura y Deporte</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. HORARIO ESCOLAR (ACTUALIZADO CON 3 TURNOS MAÑANA Y 5 TARDE) -->
+    <section id="horario" class="content-section">
+        <div class="grid md:grid-cols-1 gap-8 items-center">
+            <div class="info-card shadow-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white transform hover:scale-[1.01] transition duration-300 overflow-x-auto">
+                <h2 class="text-3xl font-extrabold mb-4 border-b pb-2 border-white/50 text-center">⏰ Horario Escolar Semanal Completo</h2>
+               
+
+                <!-- Horario de Ejemplo DETALLADO -->
+                <table class="w-full text-left bg-white/10 rounded-lg overflow-hidden border border-white/30 table-horario text-xs md:text-base">
+                    <thead class="bg-white/20">
+                        <tr>
+                            <th class="p-3 font-semibold">Día</th>
+                            <!-- Turnos de la MAÑANA (3) -->
+                            <th class="p-3 font-semibold turno-header-manana text-center"> (8:00)</th>
+                            <th class="p-3 font-semibold turno-header-manana text-center">(9:00)</th>
+                            <th class="p-3 font-semibold turno-header-manana text-center"> (10:15)</th>
+                            <!-- Turnos de la TARDE (5) -->
+                            <th class="p-3 font-semibold turno-header-tarde text-center">(1:00)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center"> (1:50)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center"> (2:40)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center"> (3:30)</th>
+                            <th class="p-3 font-semibold turno-header-tarde text-center"> (4:20)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-white/10">
+                            <td class="p-3 font-bold whitespace-nowrap">Lunes</td>
+                            <td class="p-3">Matemática</td>
+                            <td class="p-3">Español</td>
+                            <td class="p-3">Historia</td>
+                            <td class="p-3 bg-red-800/20">Inglés I</td>
+                            <td class="p-3">Química</td>
+                            <td class="p-3">Receso</td>
+                            <td class="p-3 bg-red-800/20">Taller</td>
+                            <td class="p-3">Comp.</td>
+                        </tr>
+                        <tr class="bg-white/5 hover:bg-white/10">
+                            <td class="p-3 font-bold whitespace-nowrap">Martes</td>
+                            <td class="p-3">Biología</td>
+                            <td class="p-3">Física</td>
+                            <td class="p-3">Inglés</td>
+                            <td class="p-3 bg-red-800/20">Educ. Cívica</td>
+                            <td class="p-3">Matemática</td>
+                            <td class="p-3">Educ. Física</td>
+                            <td class="p-3 bg-red-800/20">T.I.</td>
+                            <td class="p-3">Debate</td>
+                        </tr>
+                        <tr class="hover:bg-white/10">
+                            <td class="p-3 font-bold whitespace-nowrap">Miércoles</td>
+                            <td class="p-3">Química</td>
+                            <td class="p-3">Matemática</td>
+                            <td class="p-3">Español</td>
+                            <td class="p-3 bg-red-800/20">Historia</td>
+                            <td class="p-3">Taller</td>
+                            <td class="p-3">Comp.</td>
+                            <td class="p-3 bg-red-800/20">Biología</td>
+                            <td class="p-3">Física</td>
+                        </tr>
+                        <tr class="bg-white/5 hover:bg-white/10">
+                            <td class="p-3 font-bold whitespace-nowrap">Jueves</td>
+                            <td class="p-3">Educ. Física</td>
+                            <td class="p-3">Pre-militar</td>
+                            <td class="p-3">Matemática</td>
+                            <td class="p-3 bg-red-800/20">Química</td>
+                            <td class="p-3">Español</td>
+                            <td class="p-3">Inglés I</td>
+                            <td class="p-3 bg-red-800/20">Historia</td>
+                            <td class="p-3">T.I.</td>
+                        </tr>
+                        <tr class="hover:bg-white/10">
+                            <td class="p-3 font-bold whitespace-nowrap">Viernes</td>
+                            <td class="p-3">Historia</td>
+                            <td class="p-3">Biología</td>
+                            <td class="p-3">Física</td>
+                            <td class="p-3 bg-red-800/20">Educ. Cívica</td>
+                            <td class="p-3">Matemática</td>
+                            <td class="p-3">Pre-militar</td>
+                            <td class="p-3 bg-red-800/20">Debate</td>
+                            <td class="p-3">Comp.</td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+            </div>
+            <div class="text-center">
+                 <!-- Imagen Neo - Masculino (URL actualizada) -->
+                <img src="https://i.postimg.cc/vTdmGDVR/Gemini-Generated-Image-1h0ux41h0ux41h0u-1.png" alt="Personaje Neo en horario" class="mascot-image rounded-xl shadow-2xl transform rotate-1">
+                <p class="mt-2 text-sm text-gray-700 italic">"¡Ocho turnos, ocho oportunidades de aprender!" - Neo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. INFORMACIÓN GENERAL -->
+    <!-- Esta sección debe tener la clase 'active' inicialmente para mostrarse por defecto -->
+    <section id="informacion" class="content-section active">
+        <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--color-secondary);">ℹ️ Información General del Aula y el Pre</h2>
+
+        <!-- COMUNICADO OFICIAL DEL DIRECTOR (SECCIÓN PRIMARIA Y DESTACADA) -->
+        <div class="comunicado-card mb-10">
+            <h3 class="text-2xl font-extrabold mb-4 flex items-center justify-center text-orange-800 border-b pb-3 border-orange-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-7 h-7 mr-2 animate-pulse">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.022 3.376 1.8 3.376h14.4c1.778 0 2.664-1.876 1.8-3.376L12.9 5.882c-.443-.768-1.55-1.294-2.316-1.294s-1.873.526-2.316 1.294L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                COMUNICADO URGENTE DE DIRECCIÓN
+            </h3>
+            <div class="text-gray-800 text-base space-y-3 p-4 bg-white rounded-lg shadow-inner border border-gray-200">
+                <p>Estimadas familias y estudiantes:</p>
+                <p>Nos encontramos atravesando una situación compleja: actualmente contamos con **18 docentes afectados por el virus**, lo que ha reducido significativamente nuestra capacidad operativa en el preuniversitario. Sin embargo, el compromiso con el proceso docente educativo permanece intacto.</p>
+                <p>Para garantizar la continuidad del aprendizaje, se han elaborado **Hojas de Trabajo en las distintas disciplinas**, con el objetivo de que los estudiantes se mantengan al día hasta que los profesores puedan reincorporarse. Los turnos de clases programados en los horarios alternativos **no se suspenderán**; por el contrario, se mantendrán como parte esencial del proceso formativo.</p>
+                <p>Por ello, la **asistencia de los educandos cobra aún más importancia**. Necesitamos el apoyo decidido de los padres para asegurar este parámetro. A partir de mañana, cada estudiante que asista a la institución lo hará con propósito: tendrá clases, tendrá guía, tendrá acompañamiento. No estarán en la escuela por rutina, sino por **responsabilidad y por respeto al esfuerzo colectivo** que estamos realizando.</p>
+                <p>Agradecemos profundamente su comprensión y colaboración en estos momentos. Juntos, superaremos esta etapa con compromiso y unidad.</p>
+                <p class="pt-4 text-right font-semibold border-t border-gray-200">
+                    Saludos cordiales,<br>
+                    Yoangel Medero<br>
+                    Director
+                </p>
+            </div>
+        </div>
+        <!-- FIN DEL COMUNICADO OFICIAL -->
+
+        <!-- OTRAS INFORMACIONES (Debajo del comunicado) -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="info-card border-t-4 border-purple-500">
+                <h3 class="font-bold text-xl text-purple-700 mb-2">Datos de Contacto Importantes</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li class="hover:text-purple-900 transition-colors duration-200"><span class="font-semibold">Profesor(a) Guía:</span> Nombre del(a) Profesor(a)</li>
+                    <li class="hover:text-purple-900 transition-colors duration-200"><span class="font-semibold">Teléfono del Pre:</span> 7-789-XXXX</li>
+                    <li class="hover:text-purple-900 transition-colors duration-200"><span class="font-semibold">Correo de la Jefa:</span> correo@ejemplo.com</li>
+                    <li class="hover:text-purple-900 transition-colors duration-200"><span class="font-semibold">Horario de T/I:</span> Martes, 11:30 AM</li>
+                </ul>
+            </div>
+            <div class="info-card border-t-4 border-cyan-500">
+                <h3 class="font-bold text-xl text-cyan-700 mb-2">Objetivos del Mes</h3>
+                <p class="text-sm text-gray-700 mb-3">En el mes actual, nuestro enfoque será:</p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li class="hover:text-cyan-900 transition-colors duration-200">Lograr el 100% de asistencia.</li>
+                    <li class="hover:text-cyan-900 transition-colors duration-200">Mejorar el promedio en Matemáticas.</li>
+                    <li class="hover:text-cyan-900 transition-colors duration-200">Preparar el acto matutino de fin de mes.</li>
+                    <li class="hover:text-cyan-900 transition-colors duration-200">Recolección de materia prima.</li>
+                </ul>
+            </div>
+        </div>
+         <div class="text-center mt-8">
+             <!-- Imagen Estrella - Femenino (URL actualizada) -->
+            <img src="https://i.postimg.cc/7hyLqbTF/Gemini-Generated-Image-7peuts7peuts7peu-1.png" alt="Personaje Estrella" class="mascot-image max-w-[150px] mx-auto rounded-xl shadow-2xl">
+            <p class="mt-2 text-sm text-gray-500 italic text-gray-700">"Estar informados es poder." - Estrella</p>
+        </div>
+    </section>
+
+    <!-- 5. EFEMÉRIDES Y SÍMBOLOS -->
+    <section id="efemerides" class="content-section">
+        <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--color-primary);">📅 Efemérides y Símbolos de la Patria</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Columna de Efemérides -->
+            <div class="md:col-span-2 info-card bg-red-50 border-l-8 border-red-600">
+                <h3 class="text-2xl font-extrabold text-red-800 mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5" />
+                    </svg>
+                    Acontecimientos del Mes (Noviembre)
+                </h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="border-b pb-2"><span class="font-bold text-red-600">1 de Nov:</span> Asesinato de Manolito Aguiar (1958).</li>
+                    <li class="border-b pb-2"><span class="font-bold text-red-600">5 de Nov:</span> Inicio de la "Operación Carlota" en Angola (1975).</li>
+                    <li class="border-b pb-2"><span class="font-bold text-red-600">18 de Nov:</span> Nacimiento de Máximo Gómez (1836).</li>
+                    <li class="border-b pb-2"><span class="font-bold text-red-600">25 de Nov:</span> Partida del Yate Granma desde Tuxpan, México (1956).</li>
+                    <li class="border-b pb-2"><span class="font-bold text-red-600">27 de Nov:</span> Fusilamiento de los 8 Estudiantes de Medicina (1871).</li>
+                    <li><span class="font-bold text-red-600">30 de Nov:</span> Levantamiento en Santiago de Cuba en apoyo al Granma (1956).</li>
+                </ul>
+            </div>
+
+            <!-- Columna de Símbolos -->
+            <div class="info-card bg-blue-50 border-l-8 border-blue-600 text-center">
+                <h3 class="text-2xl font-extrabold text-blue-800 mb-4 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                    </svg>
+                    Símbolos Nacionales
+                </h3>
+                <p class="text-lg font-semibold text-gray-700 mb-3">La Bandera de la Estrella Solitaria:</p>
+                <div class="inline-block p-2 bg-gray-100 rounded-lg shadow-md mb-4">
+                    
+                </div>
+                <p class="text-sm text-gray-600 italic">
+                    Tres franjas azules, dos blancas, y el triángulo rojo con la estrella. Símbolo de libertad y unión.
+                </p>
+                <hr class="my-4 border-blue-300">
+                <p class="text-lg font-semibold text-gray-700 mb-3">El Himno de Bayamo:</p>
+                <p class="text-sm text-gray-600 italic">
+                    Nació en combate. Su letra y música inspiran la defensa de la patria.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para detalles del Consejo del Aula -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div id="modal-content" class="bg-white rounded-xl shadow-2xl max-w-lg w-11/12 p-6 md:p-8 relative">
+            <button id="close-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-900 text-3xl font-bold leading-none">&times;</button>
+            <div class="text-center">
+                <img id="modal-image" src="" alt="Foto del Miembro" class="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-gray-200">
+                <h3 id="modal-role" class="text-2xl font-extrabold mb-2" style="color: var(--color-primary);"></h3>
+                <p class="text-sm font-semibold text-gray-600 mb-4">Misión Principal</p>
+            </div>
+            <p id="modal-detail" class="text-gray-700 text-center text-lg leading-relaxed"></p>
+        </div>
+    </div>
+
+</div> <!-- Fin de app-container -->
+
+<script>
+    // Variables globales
+    const sections = document.querySelectorAll('.content-section');
+    const navButtons = document.querySelectorAll('.nav-button');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const closeModalButton = document.getElementById('close-modal');
+    const consejoCards = document.querySelectorAll('#consejo .info-card');
+
+    /**
+     * Función para mostrar una sección específica
+     * @param {string} targetId - ID de la sección a mostrar
+     */
+    function showSection(targetId) {
+        // Ocultar todas las secciones
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        // Desactivar todos los botones
+        navButtons.forEach(button => {
+            button.classList.remove('active-tab');
+        });
+
+        // Mostrar la sección objetivo con transición
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            
+            // Activar el botón correspondiente
+            const activeButton = document.querySelector(`.nav-button[data-target="${targetId}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active-tab');
+            }
+        }
+    }
+
+    /**
+     * Inicialización: Configuración de Listeners y activación inicial
+     */
+    window.onload = function() {
+        // Configuración de Listeners para la navegación
+        navButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('data-target');
+                showSection(targetId);
+                // Efecto Ripple al hacer clic
+                createRipple(e, this);
+            });
+        });
+
+        // Configuración de Listeners para el Modal del Consejo del Aula
+        consejoCards.forEach(card => {
+            card.addEventListener('click', function() {
+                document.getElementById('modal-role').textContent = this.getAttribute('data-role');
+                document.getElementById('modal-detail').textContent = this.getAttribute('data-detail');
+                document.getElementById('modal-image').src = this.getAttribute('data-img');
+                
+                modalOverlay.classList.remove('hidden');
+                setTimeout(() => modalOverlay.classList.add('active'), 10); // Trigger transition
+            });
+        });
+
+        // Cierre del Modal
+        closeModalButton.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Cierre del Modal con la tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    };
+
+    /**
+     * Oculta el modal con transición.
+     */
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        setTimeout(() => modalOverlay.classList.add('hidden'), 400);
+    }
+
+
+    /**
+     * Efecto visual de onda (Ripple Effect)
+     */
+    function createRipple(event, button) {
+        const circle = document.createElement('span');
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+
+        // Posiciona el círculo en el punto donde se hizo clic
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+        circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+        circle.classList.add('ripple');
+
+        // Elimina cualquier ripple anterior y añade el nuevo
+        const ripple = button.getElementsByClassName('ripple')[0];
+        if (ripple) {
+            ripple.remove();
+        }
+        button.appendChild(circle);
+    }
+</script>
+</body>
+</html>
