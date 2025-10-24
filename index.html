@@ -1,6 +1,6 @@
 <!--
   Mural Digital Interactivo para el Preuniversitario José Martí, Aula 11 #7.
-  Temas: Reglamento Escolar, Consejo del Aula, Horario Escolar, Información, Efemérides.
+  Temas: Reglamento Escolar, Consejo del Aula, Horario Escolar, Información, Efemérides, y Símbolos Nacionales COMPLETOS.
   Diseño juvenil, transiciones y personajes (mascotas).
 -->
 <html lang="es">
@@ -12,7 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Fuente atractiva: Poppins para contenido, usaremos Inter para el título por su claridad -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght=700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@700;900&display=swap');
         :root {
             --color-primary: #D50000; /* Rojo vibrante */
             --color-secondary: #004D99; /* Azul oscuro y juvenil */
@@ -176,6 +176,52 @@
              border-left: 1px solid #e0e0e0;
              border-right: 1px solid #e0e0e0;
         }
+
+        /* Estilo para imágenes de Símbolos */
+        .simbolo-image {
+            width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Estilo para contenedor de símbolos, permite scroll en móvil */
+        .simbolos-container {
+            padding-right: 10px; /* Espacio para la barra de desplazamiento */
+        }
+        /* Estilo específico para cada atributo/símbolo */
+        .simbolo-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--color-secondary);
+        }
+
+        /* Estilos para el Carrusel de Efemérides */
+        .carousel-item {
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            display: none;
+        }
+        .carousel-item.active {
+            opacity: 1;
+            display: block;
+        }
+        .carousel-button {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .carousel-button:hover {
+            transform: scale(1.05);
+        }
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
     </style>
 </head>
 <body>
@@ -243,9 +289,9 @@
                 </div>
             </div>
             <div class="text-center">
-                <!-- Imagen Neo - Masculino (URL actualizada) -->
+                <!-- Personaje que presenta la sección -->
                 <img src="https://i.postimg.cc/vTdmGDVR/Gemini-Generated-Image-1h0ux41h0ux41h0u-1.png" alt="Personaje Masculino - Neo" class="mascot-image rounded-xl shadow-2xl">
-                <p class="mt-2 text-sm text-gray-500 italic">"¡La disciplina nos lleva al éxito!" - Neo</p>
+                <p class="mt-2 text-sm text-gray-500 italic">"¡La disciplina nos lleva al éxito!" - Neo, responsable del Reglamento.</p>
             </div>
         </div>
     </section>
@@ -255,7 +301,7 @@
         <div class="grid md:grid-cols-1 gap-6">
             <h2 class="text-3xl font-bold mb-4 text-center" style="color: var(--color-primary);">👑 Consejo del Aula: Nuestros Líderes</h2>
             <div class="flex flex-col md:flex-row items-center justify-center mb-6">
-                 <!-- Imagen Estrella - Femenino (URL actualizada) -->
+                 <!-- Personaje que presenta la sección -->
                 <img src="https://i.postimg.cc/7hyLqbTF/Gemini-Generated-Image-7peuts7peuts7peu-1.png" alt="Personaje Femenino - Estrella" class="mascot-image max-w-[150px] mb-4 md:mb-0 md:mr-6 rounded-xl shadow-2xl">
                 <p class="text-gray-700 text-center md:text-left max-w-xl">**Estrella** nos presenta a los compañeros que tienen la misión de dirigir y representar al aula. ¡Haz clic en la tarjeta para ver el rol de cada uno!</p>
             </div>
@@ -267,7 +313,7 @@
                     data-role="Jefa de Destacamento"
                     data-detail="Es la máxima responsable de la organización del aula. Dirige las asambleas, vela por el cumplimiento de los deberes y representa al grupo ante la dirección. Su liderazgo es esencial."
                     data-img="https://placehold.co/80x80/D50000/ffffff?text=J.D.">
-                    <img src="https://placehold.co/80x80/D50000/ffffff?text=J.D." alt="Foto Jefa de Destacamento" class="member-photo mb-3 rounded-full">
+                    <img src="https://placehold.co/80x80/D50000/ffffff?text=J.D." onerror="this.onerror=null;this.src='https://placehold.co/80x80/D50000/ffffff?text=J.D.';" alt="Foto Jefa de Destacamento" class="member-photo mb-3 rounded-full">
                     <h3 class="font-bold text-sm md:text-xl text-red-700 text-center">Jefa de Destacamento</h3>
                     <p class="text-xs text-gray-600 font-semibold mt-1">Líder Principal</p>
                 </div>
@@ -277,7 +323,7 @@
                     data-role="Segundo Jefe de Destacamento"
                     data-detail="Sustituye a la Jefa en su ausencia y colabora estrechamente en la organización de las tareas. Generalmente apoya en la logística y el control de asistencia."
                     data-img="https://placehold.co/80x80/004D99/ffffff?text=S.J.D">
-                    <img src="https://placehold.co/80x80/004D99/ffffff?text=S.J.D" alt="Foto Segundo Jefe de Destacamento" class="member-photo mb-3 rounded-full">
+                    <img src="https://placehold.co/80x80/004D99/ffffff?text=S.J.D" onerror="this.onerror=null;this.src='https://placehold.co/80x80/004D99/ffffff?text=S.J.D';" alt="Foto Segundo Jefe de Destacamento" class="member-photo mb-3 rounded-full">
                     <h3 class="font-bold text-sm md:text-xl text-blue-700 text-center">Segundo Jefe</h3>
                     <p class="text-xs text-gray-600 font-semibold mt-1">Apoyo y Logística</p>
                 </div>
@@ -287,7 +333,7 @@
                     data-role="Jefa de Emulación"
                     data-detail="Encargada de promover el estudio, el esfuerzo y la sana competencia. Organiza las pizarras murales, controla los resultados académicos y propone reconocimientos al mérito."
                     data-img="https://placehold.co/80x80/FFD700/000000?text=J.E.">
-                    <img src="https://placehold.co/80x80/FFD700/000000?text=J.E." alt="Foto Jefa de Emulación" class="member-photo mb-3 rounded-full">
+                    <img src="https://placehold.co/80x80/FFD700/000000?text=J.E." onerror="this.onerror=null;this.src='https://placehold.co/80x80/FFD700/000000?text=J.E.';" alt="Foto Jefa de Emulación" class="member-photo mb-3 rounded-full">
                     <h3 class="font-bold text-sm md:text-xl text-yellow-700 text-center">Jefa de Emulación</h3>
                     <p class="text-xs text-gray-600 font-semibold mt-1">Motivación y Reconocimiento</p>
                 </div>
@@ -297,7 +343,7 @@
                     data-role="Jefe de Actividades"
                     data-detail="Responsable de organizar y coordinar todas las actividades extra-escolares: culturales, deportivas, recreativas y productivas. Asegura la integración y el buen ambiente."
                     data-img="https://placehold.co/80x80/28a745/ffffff?text=J.A.">
-                    <img src="https://placehold.co/80x80/28a745/ffffff?text=J.A." alt="Foto Jefe de Actividades" class="member-photo mb-3 rounded-full">
+                    <img src="https://placehold.co/80x80/28a745/ffffff?text=J.A." onerror="this.onerror=null;this.src='https://placehold.co/80x80/28a745/ffffff?text=J.A.';" alt="Foto Jefe de Actividades" class="member-photo mb-3 rounded-full">
                     <h3 class="font-bold text-sm md:text-xl text-green-700 text-center">Jefe de Actividades</h3>
                     <p class="text-xs text-gray-600 font-semibold mt-1">Cultura y Deporte</p>
                 </div>
@@ -392,9 +438,9 @@
                 </p>
             </div>
             <div class="text-center">
-                 <!-- Imagen Neo - Masculino (URL actualizada) -->
+                 <!-- Personaje que presenta la sección -->
                 <img src="https://i.postimg.cc/vTdmGDVR/Gemini-Generated-Image-1h0ux41h0ux41h0u-1.png" alt="Personaje Neo en horario" class="mascot-image rounded-xl shadow-2xl transform rotate-1">
-                <p class="mt-2 text-sm text-gray-700 italic">"¡Ocho turnos, ocho oportunidades de aprender!" - Neo</p>
+                <p class="mt-2 text-sm text-gray-700 italic">"¡Ocho turnos, ocho oportunidades de aprender!" - Neo, responsable del Horario.</p>
             </div>
         </div>
     </section>
@@ -450,57 +496,109 @@
             </div>
         </div>
          <div class="text-center mt-8">
-             <!-- Imagen Estrella - Femenino (URL actualizada) -->
+             <!-- Personaje que presenta la sección -->
             <img src="https://i.postimg.cc/7hyLqbTF/Gemini-Generated-Image-7peuts7peuts7peu-1.png" alt="Personaje Estrella" class="mascot-image max-w-[150px] mx-auto rounded-xl shadow-2xl">
-            <p class="mt-2 text-sm text-gray-500 italic text-gray-700">"Estar informados es poder." - Estrella</p>
+            <p class="mt-2 text-sm text-gray-700 italic">"Estar informados es poder." - Estrella, responsable de Información.</p>
         </div>
     </section>
 
-    <!-- 5. EFEMÉRIDES Y SÍMBOLOS -->
+    <!-- 5. EFEMÉRIDES Y SÍMBOLOS (CON CARRUSEL Y SÍMBOLOS DEBAJO) -->
     <section id="efemerides" class="content-section">
         <h2 class="text-3xl font-bold mb-6 text-center" style="color: var(--color-primary);">📅 Efemérides y Símbolos de la Patria</h2>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Columna de Efemérides -->
-            <div class="md:col-span-2 info-card bg-red-50 border-l-8 border-red-600">
-                <h3 class="text-2xl font-extrabold text-red-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5" />
+        <!-- EFEMÉRIDES (CARRUSEL INTERACTIVO) -->
+        <div class="info-card bg-red-50 border-l-8 border-red-600 relative overflow-hidden flex flex-col justify-between mb-8 min-h-[450px]">
+            <!-- Controles de Navegación del Carrusel -->
+            <div class="flex justify-between items-center p-2 mb-2 border-b border-red-200">
+                <button id="prev-month-btn" class="carousel-button bg-red-600 text-white py-1 px-3 rounded-full font-semibold flex items-center text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
-                    Acontecimientos del Mes (Noviembre)
+                    Anterior
+                </button>
+                <h3 id="current-month-title" class="text-2xl font-extrabold text-red-800 text-center">
+                    Efemérides del Mes
                 </h3>
-                <ul class="space-y-3 text-gray-700">
-                    <li class="border-b pb-2"><span class="font-bold text-red-600">1 de Nov:</span> Asesinato de Manolito Aguiar (1958).</li>
-                    <li class="border-b pb-2"><span class="font-bold text-red-600">5 de Nov:</span> Inicio de la "Operación Carlota" en Angola (1975).</li>
-                    <li class="border-b pb-2"><span class="font-bold text-red-600">18 de Nov:</span> Nacimiento de Máximo Gómez (1836).</li>
-                    <li class="border-b pb-2"><span class="font-bold text-red-600">25 de Nov:</span> Partida del Yate Granma desde Tuxpan, México (1956).</li>
-                    <li class="border-b pb-2"><span class="font-bold text-red-600">27 de Nov:</span> Fusilamiento de los 8 Estudiantes de Medicina (1871).</li>
-                    <li><span class="font-bold text-red-600">30 de Nov:</span> Levantamiento en Santiago de Cuba en apoyo al Granma (1956).</li>
-                </ul>
+                <button id="next-month-btn" class="carousel-button bg-red-600 text-white py-1 px-3 rounded-full font-semibold flex items-center text-sm">
+                    Siguiente
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 ml-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                </button>
             </div>
 
-            <!-- Columna de Símbolos -->
-            <div class="info-card bg-blue-50 border-l-8 border-blue-600 text-center">
-                <h3 class="text-2xl font-extrabold text-blue-800 mb-4 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                    </svg>
-                    Símbolos Nacionales
-                </h3>
-                <p class="text-lg font-semibold text-gray-700 mb-3">La Bandera de la Estrella Solitaria:</p>
-                <div class="inline-block p-2 bg-gray-100 rounded-lg shadow-md mb-4">
-                    
-                </div>
-                <p class="text-sm text-gray-600 italic">
-                    Tres franjas azules, dos blancas, y el triángulo rojo con la estrella. Símbolo de libertad y unión.
-                </p>
-                <hr class="my-4 border-blue-300">
-                <p class="text-lg font-semibold text-gray-700 mb-3">El Himno de Bayamo:</p>
-                <p class="text-sm text-gray-600 italic">
-                    Nació en combate. Su letra y música inspiran la defensa de la patria.
-                </p>
+            <!-- Contenedor del Carrusel de Efemérides -->
+            <div id="efemerides-carousel" class="flex-grow p-4 overflow-y-auto max-h-[350px]">
+                <!-- El contenido se genera por JavaScript aquí -->
+            </div>
+
+            <div class="p-2 border-t border-red-200 text-center text-sm text-red-600">
+                <p id="month-indicator"></p>
             </div>
         </div>
+
+
+        <!-- SÍMBOLOS NACIONALES (COLOCADOS DEBAJO EN FORMATO DE GRID) -->
+        <div class="info-card bg-blue-50 border-t-8 border-blue-600 p-6 md:p-8">
+            <h3 class="text-2xl font-extrabold text-blue-800 mb-6 border-b pb-3 border-blue-200 text-center flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                </svg>
+                Símbolos y Atributos Nacionales de Cuba
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 simbolos-container">
+                <!-- SÍMBOLO: BANDERA -->
+                <div class="simbolo-item">
+                    <p class="text-lg font-bold text-blue-700 mb-2">1. La Bandera de la Estrella Solitaria</p>
+                    <img src="https://i.postimg.cc/QtBSkhRd/Bandera-cubana-aislada-Foto-Premium.jpg" onerror="this.onerror=null;this.src='https://placehold.co/200x100/D50000/ffffff?text=Bandera';" alt="Bandera de Cuba" class="simbolo-image mx-auto">
+                    <p class="text-sm text-gray-600">Símbolo de libertad, unión y la lucha por la independencia.</p>
+                </div>
+
+                <!-- SÍMBOLO: ESCUDO -->
+                <div class="simbolo-item">
+                    <p class="text-lg font-bold text-blue-700 mb-2">2. El Escudo de la Palma Real</p>
+                    <img src="https://i.postimg.cc/3Ry9CYPR/Coat-of-Arms-of-Cuba.jpg" onerror="this.onerror=null;this.src='https://placehold.co/200x100/004D99/ffffff?text=Escudo';" alt="Escudo de Cuba" class="simbolo-image mx-auto">
+                    <p class="text-sm text-gray-600">Representa la nación, su geografía, firmeza y dignidad. Muestra la llave del golfo.</p>
+                </div>
+
+                <!-- SÍMBOLO: HIMNO -->
+                <div class="simbolo-item">
+                    <p class="text-lg font-bold text-blue-700 mb-2">3. El Himno de Bayamo</p>
+                    <img src="https://i.postimg.cc/GmcQgkW1/himno-nacional.jpg" onerror="this.onerror=null;this.src='https://placehold.co/200x100/FFD700/000000?text=Himno';" alt="Partitura del Himno Nacional de Cuba" class="simbolo-image mx-auto">
+                    <p class="text-sm text-gray-600">Melodía patriótica nacida en el combate por Perucho Figueredo en 1868.</p>
+                </div>
+
+                <!-- ATRIBUTO: TOCORORO -->
+                <div class="simbolo-item">
+                    <p class="text-lg font-bold text-blue-700 mb-2">4. Ave Nacional: El Tocororo</p>
+                    <img src="https://i.postimg.cc/76CXMwpf/El-tocororo.jpg" onerror="this.onerror=null;this.src='https://placehold.co/200x100/004D99/ffffff?text=Tocororo';" alt="El Tocororo, Ave Nacional de Cuba" class="simbolo-image mx-auto">
+                    <p class="text-sm text-gray-600">Simboliza la libertad; si se le encierra, muere de tristeza. Sus colores son la bandera.</p>
+                </div>
+
+                <!-- ATRIBUTO: MARIPOSA -->
+                <div class="simbolo-item">
+                    <p class="text-lg font-bold text-blue-700 mb-2">5. Flor Nacional: La Mariposa</p>
+                    <img src="https://i.postimg.cc/kgncYx0m/flor-mariposa.jpg" onerror="this.onerror=null;this.src='https://placehold.co/200x100/FFFFFF/000000?text=Mariposa';" alt="La Flor de Mariposa, Flor Nacional de Cuba" class="simbolo-image mx-auto">
+                    <p class="text-sm text-gray-600">Emblema de pureza, belleza y rebeldía. Usada por las mambisas para llevar mensajes.</p>
+                </div>
+
+                <!-- ATRIBUTO: PALMA REAL -->
+                <div class="simbolo-item">
+                    <p class="text-lg font-bold text-blue-700 mb-2">6. Árbol Nacional: La Palma Real</p>
+                    <img src="https://i.postimg.cc/XYQgRrWS/palma-real1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/200x100/004D99/ffffff?text=Palma';" alt="La Palma Real, Árbol Nacional de Cuba" class="simbolo-image mx-auto">
+                    <p class="text-sm text-gray-600">Representa la altivez, la firmeza y la cubanía. Se encuentra en el Escudo Nacional.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-8">
+             <!-- Personaje que presenta la sección -->
+            <img src="https://i.postimg.cc/vTdmGDVR/Gemini-Generated-Image-1h0ux41h0ux41h0u-1.png" alt="Personaje Neo" class="mascot-image max-w-[150px] mx-auto rounded-xl shadow-2xl">
+            <p class="mt-2 text-sm text-gray-700 italic">"¡Conocer nuestra historia y símbolos es honrar la Patria!" - Neo, responsable de Efemérides.</p>
+        </div>
+
     </section>
 
     <!-- Modal para detalles del Consejo del Aula -->
@@ -526,6 +624,164 @@
     const closeModalButton = document.getElementById('close-modal');
     const consejoCards = document.querySelectorAll('#consejo .info-card');
 
+    // --- Lógica del Carrusel de Efemérides ---
+    let currentMonthIndex = (new Date()).getMonth(); // 0 (Enero) a 11 (Diciembre)
+
+    // DATOS DE EFEMÉRIDES AMPLIADOS POR MES (MÁS DE 3 EVENTOS)
+    const efemeridesData = [
+        // Enero
+        { month: "Enero", events: [
+            "1 de Enero: Triunfo de la Revolución Cubana (1959).",
+            "2 de Enero: Toma de Santiago de Cuba por el Ejército Rebelde (1959).",
+            "13 de Enero: Nacionalización de la Educación (1961).",
+            "28 de Enero: Natalicio de José Martí (1853)."
+        ]},
+        // Febrero
+        { month: "Febrero", events: [
+            "3 de Febrero: Comienzo de la Crisis de Octubre (1962).",
+            "16 de Febrero: Firma del Manifiesto de Montecristi por Martí y Gómez (1895).",
+            "24 de Febrero: Reinicio de la Guerra de Independencia (Grito de Baire, 1895).",
+            "24 de Febrero: Proclamación de la Constitución Socialista de 1976."
+        ]},
+        // Marzo
+        { month: "Marzo", events: [
+            "8 de Marzo: Día Internacional de la Mujer.",
+            "10 de Marzo: Golpe de Estado de Fulgencio Batista (1952).",
+            "13 de Marzo: Asalto al Palacio Presidencial y la toma de Radio Reloj por el Directorio Revolucionario (1957).",
+            "14 de Marzo: Día de los Mártires Universitarios (en honor a José Antonio Echeverría).",
+            "18 de Marzo: Inicio del Plan Maestro de la Ofensiva Final (1958)."
+        ]},
+        // Abril
+        { month: "Abril", events: [
+            "4 de Abril: Aniversario de la UJC y la OPJM (1962).",
+            "17 de Abril: Comienzo de la invasión mercenaria por Playa Girón (1961).",
+            "19 de Abril: Victoria sobre la Brigada 2506 en Playa Girón (1961).",
+            "21 de Abril: Creación del Ministerio de Educación (1959)."
+        ]},
+        // Mayo
+        { month: "Mayo", events: [
+            "1 de Mayo: Día Internacional de los Trabajadores.",
+            "19 de Mayo: Caída en combate de José Martí en Dos Ríos (1895).",
+            "20 de Mayo: Proclamación de la República (1902) (Día de Duelo Nacional por la Ocupación).",
+            "26 de Mayo: Desembarco de la expedición de Cayo Confites (1947)."
+        ]},
+        // Junio
+        { month: "Junio", events: [
+            "5 de Junio: Día Mundial del Medio Ambiente.",
+            "14 de Junio: Natalicio de Antonio Maceo (1845) y de Ernesto Che Guevara (1928).",
+            "20 de Junio: Día del Padre en Cuba.",
+            "30 de Junio: Asesinato del líder clandestino Frank País (1957)."
+        ]},
+        // Julio
+        { month: "Julio", events: [
+            "17 de Julio: Creación del Primer Periódico Rebelde: El Cubano Libre (1868).",
+            "25 de Julio: Día de la Provincia de Santiago de Cuba.",
+            "26 de Julio: Asalto a los Cuarteles Moncada y Carlos Manuel de Céspedes (1953).",
+            "30 de Julio: Día de los Mártires de la Revolución Cubana."
+        ]},
+        // Agosto
+        { month: "Agosto", events: [
+            "5 de Agosto: Día Internacional de la Juventud.",
+            "12 de Agosto: Caída del dictador Gerardo Machado (1933).",
+            "23 de Agosto: Fundación de la Federación de Mujeres Cubanas (FMC) (1960).",
+            "31 de Agosto: Cruce de la Sierra Maestra por Fidel Castro (1958)."
+        ]},
+        // Septiembre
+        { month: "Septiembre", events: [
+            "8 de Septiembre: Día de Nuestra Señora de la Caridad del Cobre, Patrona de Cuba.",
+            "12 de Septiembre: Día de los Héroes Prisioneros del Imperio.",
+            "28 de Septiembre: Fundación de los Comités de Defensa de la Revolución (CDR) (1960).",
+            "29 de Septiembre: Natalicio de Luis Melián, Mártir de la Revolución."
+        ]},
+        // Octubre
+        { month: "Octubre", events: [
+            "8 de Octubre: Caída en combate de Ernesto Che Guevara (1967).",
+            "10 de Octubre: Grito de Yara, inicio de la Guerra de los Diez Años por Carlos Manuel de Céspedes (1868).",
+            "19 de Octubre: Día de la Cultura Nacional Cubana (por primera vez se cantó el Himno de Bayamo).",
+            "28 de Octubre: Desaparición física de Camilo Cienfuegos (1959)."
+        ]},
+        // Noviembre
+        { month: "Noviembre", events: [
+            "11 de Noviembre: Nace el educador y pensador Enrique José Varona (1849).",
+            "17 de Noviembre: Día Internacional de los Estudiantes.",
+            "25 de Noviembre: Partida del Yate Granma desde Tuxpan, México (1956).",
+            "27 de Noviembre: Fusilamiento de los Ocho Estudiantes de Medicina (1871)."
+        ]},
+        // Diciembre
+        { month: "Diciembre", events: [
+            "2 de Diciembre: Desembarco del Yate Granma (1956) y Día de las Fuerzas Armadas Revolucionarias (FAR).",
+            "3 de Diciembre: Día de la Medicina Latinoamericana.",
+            "7 de Diciembre: Caída en combate de Antonio Maceo (1896) y Día de los Caídos en las Guerras de Independencia.",
+            "22 de Diciembre: Inicio de la Campaña de Alfabetización (1961)."
+        ]}
+    ];
+
+    /**
+     * Rendeiza y actualiza el contenido del carrusel de efemérides.
+     */
+    function updateCarousel() {
+        const data = efemeridesData[currentMonthIndex];
+        const carouselContainer = document.getElementById('efemerides-carousel');
+        const monthTitle = document.getElementById('current-month-title');
+        const monthIndicator = document.getElementById('month-indicator');
+        const prevBtn = document.getElementById('prev-month-btn');
+        const nextBtn = document.getElementById('next-month-btn');
+
+        // Actualizar el título
+        monthTitle.textContent = `Acontecimientos de ${data.month}`;
+        monthIndicator.textContent = `Mes ${currentMonthIndex + 1} de 12`;
+
+        // Generar la lista de efemérides
+        let htmlContent = '<ul class="space-y-4 text-gray-700">';
+        data.events.forEach(event => {
+            // El formato de la efeméride es "Día de Mes: Evento (Año)"
+            const parts = event.split(':');
+            const date = parts[0].trim();
+            const description = parts[1].trim();
+
+            htmlContent += `
+                <li class="border-b pb-2 hover:bg-red-100/50 p-1 rounded transition duration-200 flex items-start">
+                    <span class="font-bold text-red-600 w-24 flex-shrink-0">${date}:</span> <span class="flex-grow">${description}</span>
+                </li>
+            `;
+        });
+        htmlContent += '</ul>';
+
+        // Aplicar contenido con animación de fade-in (simulada)
+        carouselContainer.style.opacity = '0';
+        setTimeout(() => {
+            carouselContainer.scrollTop = 0; // Reset scroll position
+            carouselContainer.innerHTML = htmlContent;
+            carouselContainer.style.opacity = '1';
+        }, 50); // Pequeño retraso para que el fade sea notorio
+
+        // Manejo de botones (desactivar en los extremos)
+        prevBtn.disabled = currentMonthIndex === 0;
+        nextBtn.disabled = currentMonthIndex === efemeridesData.length - 1;
+    }
+
+    /**
+     * Mueve el carrusel al mes anterior.
+     */
+    function prevMonth() {
+        if (currentMonthIndex > 0) {
+            currentMonthIndex--;
+            updateCarousel();
+        }
+    }
+
+    /**
+     * Mueve el carrusel al mes siguiente.
+     */
+    function nextMonth() {
+        if (currentMonthIndex < efemeridesData.length - 1) {
+            currentMonthIndex++;
+            updateCarousel();
+        }
+    }
+
+    // --- Funciones de Navegación General y Modal ---
+
     /**
      * Función para mostrar una sección específica
      * @param {string} targetId - ID de la sección a mostrar
@@ -544,11 +800,16 @@
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             targetSection.classList.add('active');
-            
+
             // Activar el botón correspondiente
             const activeButton = document.querySelector(`.nav-button[data-target="${targetId}"]`);
             if (activeButton) {
                 activeButton.classList.add('active-tab');
+            }
+
+            // Si es la sección de efemérides, asegurar que el carrusel se muestre correctamente
+            if (targetId === 'efemerides') {
+                updateCarousel();
             }
         }
     }
@@ -557,7 +818,7 @@
      * Inicialización: Configuración de Listeners y activación inicial
      */
     window.onload = function() {
-        // Configuración de Listeners para la navegación
+        // Configuración de Listeners para la navegación de Tabs
         navButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('data-target');
@@ -567,13 +828,17 @@
             });
         });
 
+        // Configuración de Listeners para los botones del Carrusel de Efemérides
+        document.getElementById('prev-month-btn').addEventListener('click', prevMonth);
+        document.getElementById('next-month-btn').addEventListener('click', nextMonth);
+
         // Configuración de Listeners para el Modal del Consejo del Aula
         consejoCards.forEach(card => {
             card.addEventListener('click', function() {
                 document.getElementById('modal-role').textContent = this.getAttribute('data-role');
                 document.getElementById('modal-detail').textContent = this.getAttribute('data-detail');
                 document.getElementById('modal-image').src = this.getAttribute('data-img');
-                
+
                 modalOverlay.classList.remove('hidden');
                 setTimeout(() => modalOverlay.classList.add('active'), 10); // Trigger transition
             });
@@ -593,6 +858,11 @@
                 closeModal();
             }
         });
+
+         // Mostrar la sección 'informacion' por defecto y cargar el carrusel
+        showSection('informacion');
+        // Inicializar el carrusel al mes actual
+        updateCarousel();
     };
 
     /**
@@ -628,4 +898,5 @@
 </script>
 </body>
 </html>
+
 
